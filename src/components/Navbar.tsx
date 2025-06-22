@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ShieldCheck } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const location = useLocation();
 
   const navigation = [
@@ -17,19 +19,41 @@ const Navbar = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setShowNavbar(false);
+      } else {
+        setShowNavbar(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
+
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
+    <nav
+      className={`bg-white shadow-lg fixed top-0 left-0 right-0 z-50 transition-transform duration-300 ${
+        showNavbar ? 'translate-y-0' : '-translate-y-full'
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-          <Link to="/" className="flex items-center space-x-3">
+        <div className="flex justify-between h-16 items-center">
+          {/* Logo and Brand */}
+          {/* Logo and Brand */}
+          <Link to="/" className="flex items-center space-x-0.5">
+            <img
+              src="/logo/SGS.png"
+              alt="Logo"
+              className="h-20 w-20 object-contain"
+            />
             <span className="text-2xl font-bold text-gray-900">
               Sabitha Gratuity Services
             </span>
           </Link>
-
-          </div>
-
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (

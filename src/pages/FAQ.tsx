@@ -23,7 +23,7 @@ const FAQ = () => {
         },
         {
           question: 'How long does the AS-15 valuation process take?',
-          answer: 'Typically, AS-15 valuation takes 5-7 working days from the date of receiving complete employee data and required information. The timeline may vary based on the complexity of the benefit structure and size of the employee base.'
+          answer: 'Typically, AS-15 valuation takes 2-4 working days from the date of receiving complete employee data and required information. The timeline may vary based on the complexity of the benefit structure and size of the employee base.'
         }
       ]
     },
@@ -77,7 +77,7 @@ const FAQ = () => {
       faqs: [
         {
           question: 'What is PCIT approval and when is it required?',
-          answer: 'PCIT (Principal Commissioner of Income Tax) approval is required for gratuity trusts to avail tax benefits under Section 80D. It ensures the trust complies with income tax regulations and operates for genuine employee welfare purposes.'
+          answer: 'Contributions to an approved Gratuity fund is deductible under section 36 (1)(v) of the Income Tax Act, 1961. Income accrued on the investment made by the group gratuity scheme is exempt from income tax under section 10(25)(iv). It ensures the trust complies with income tax regulations and operates for genuine employee welfare purposes.'
         },
         {
           question: 'What changes require PCIT endorsement?',
@@ -85,7 +85,7 @@ const FAQ = () => {
         },
         {
           question: 'How long does PCIT approval take?',
-          answer: 'PCIT approval typically takes 4-6 weeks from application submission. The timeline depends on the complexity of the case and PCIT office workload. We maintain regular follow-up to expedite the process.'
+          answer: 'PCIT approval typically takes 6-8 weeks from application submission. The timeline depends on the complexity of the case and PCIT office workload. We maintain regular follow-up to expedite the process.'
         },
         {
           question: 'What if PCIT approval is delayed or rejected?',

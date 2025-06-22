@@ -3,20 +3,8 @@ import { Link } from 'react-router-dom';
 import { Star, Quote, Building, MapPin, Calendar } from 'lucide-react';
 
 const Testimonials = () => {
-  // Initial testimonials
-  const [testimonials, setTestimonials] = useState([
-    {
-      name: 'Rajesh Kumar',
-      position: 'HR Director',
-      company: 'Tech Solutions Pvt Ltd',
-      location: 'Hyderabad, Telangana',
-      rating: 5,
-      date: 'March 2024',
-      text: 'Sabitha Gratuity Services provided exceptional support for our gratuity trust setup. The team handled all regulatory requirements seamlessly, and we received our PCIT approval much faster than expected. Their expertise in AS-15 valuations is outstanding.',
-      services: ['Trust Formation', 'AS-15 Valuation', 'PCIT Approval'],
-    },
-    // Add more initial testimonials here if needed
-  ]);
+  // Initial testimonials (add objects here if you have seed data)
+  const [testimonials, setTestimonials] = useState([]);
 
   // Stats data
   const stats = [
@@ -45,7 +33,7 @@ const Testimonials = () => {
   const [visibleCount, setVisibleCount] = useState(4);
 
   // Handle input change
-  const handleChange = (e: { target: { name: any; value: any; }; }) => {
+  const handleChange = (e: { target: { name: string; value: string } }) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -62,7 +50,7 @@ const Testimonials = () => {
   };
 
   // Submit form
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     // Parse services into array
@@ -74,7 +62,7 @@ const Testimonials = () => {
     let formattedDate = formData.date;
     if (formData.date) {
       const [year, month] = formData.date.split('-');
-      const dateObj = new Date(year, month - 1);
+      const dateObj = new Date(Number(year), Number(month) - 1);
       formattedDate = dateObj.toLocaleString('default', {
         month: 'long',
         year: 'numeric',
@@ -109,8 +97,6 @@ const Testimonials = () => {
 
     // Show success message
     setSuccessMessage('Thank you for submitting your testimonial!');
-
-    // Hide after 5 seconds
     setTimeout(() => setSuccessMessage(''), 5000);
   };
 
@@ -131,16 +117,18 @@ const Testimonials = () => {
             Client Testimonials
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Discover what our clients say about our professional gratuity and trust
-            services. Real experiences from businesses across Telangana, AP, and
-            Karnataka.
+            Discover what our clients say about our professional gratuity and
+            trust services. Real experiences from businesses across Telangana,
+            AP, and Karnataka.
           </p>
 
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-2xl md:text-3xl font-bold text-blue-600">{stat.number}</div>
+                <div className="text-2xl md:text-3xl font-bold text-blue-600">
+                  {stat.number}
+                </div>
                 <div className="text-sm text-gray-600">{stat.label}</div>
               </div>
             ))}
@@ -151,54 +139,70 @@ const Testimonials = () => {
       {/* Testimonials Grid */}
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {visibleTestimonials.map((testimonial, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 h-full flex flex-col hover:shadow-xl transition-shadow duration-300"
-              >
-                <div className="flex justify-between mb-4">
-                  <Quote className="w-6 h-6 text-blue-600 opacity-50" />
-                  <div className="flex space-x-1">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-current" />
+          {visibleTestimonials.length === 0 ? (
+            <div className="bg-yellow-100 text-yellow-800 border border-yellow-300 rounded-lg px-6 py-5 text-center text-base md:text-lg max-w-2xl mx-auto">
+              <strong>Note:</strong> This section is under process. We're currently working on displaying our client testimonials. Please check back later for updates!
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {visibleTestimonials.map((testimonial, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 h-full flex flex-col hover:shadow-xl transition-shadow duration-300"
+                >
+                  <div className="flex justify-between mb-4">
+                    <Quote className="w-6 h-6 text-blue-600 opacity-50" />
+                    <div className="flex space-x-1">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className="w-4 h-4 text-yellow-400 fill-current"
+                        />
+                      ))}
+                    </div>
+                  </div>
+                  <p className="text-gray-700 italic mb-4 flex-grow">
+                    "{testimonial.text}"
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {testimonial.services.map((service, i) => (
+                      <span
+                        key={i}
+                        className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium"
+                      >
+                        {service}
+                      </span>
                     ))}
                   </div>
-                </div>
-                <p className="text-gray-700 italic mb-4 flex-grow">"{testimonial.text}"</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {testimonial.services.map((service, i) => (
-                    <span
-                      key={i}
-                      className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium"
-                    >
-                      {service}
-                    </span>
-                  ))}
-                </div>
-                <div className="border-t border-gray-100 pt-4 mt-auto">
-                  <div className="flex justify-between">
-                    <div>
-                      <h3 className="font-bold text-gray-900">{testimonial.name}</h3>
-                      <p className="text-blue-600 text-sm">{testimonial.position}</p>
-                      <div className="flex items-center text-gray-600 text-sm">
-                        <Building className="w-4 h-4 mr-1" />
-                        {testimonial.company}
+                  <div className="border-t border-gray-100 pt-4 mt-auto">
+                    <div className="flex justify-between">
+                      <div>
+                        <h3 className="font-bold text-gray-900">
+                          {testimonial.name}
+                        </h3>
+                        <p className="text-blue-600 text-sm">
+                          {testimonial.position}
+                        </p>
+                        <div className="flex items-center text-gray-600 text-sm">
+                          <Building className="w-4 h-4 mr-1" />
+                          {testimonial.company}
+                        </div>
+                        <div className="flex items-center text-gray-500 text-sm">
+                          <MapPin className="w-4 h-4 mr-1" />
+                          {testimonial.location}
+                        </div>
                       </div>
                       <div className="flex items-center text-gray-500 text-sm">
-                        <MapPin className="w-4 h-4 mr-1" />
-                        {testimonial.location}
+                        <Calendar className="w-4 h-4 mr-1" />
+                        {testimonial.date}
                       </div>
-                    </div>
-                    <div className="flex items-center text-gray-500 text-sm">
-                      <Calendar className="w-4 h-4 mr-1" />
-                      {testimonial.date}
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
+
           {visibleCount < testimonials.length && (
             <div className="mt-8 text-center">
               <button
@@ -219,16 +223,24 @@ const Testimonials = () => {
         </div>
       )}
 
-      {/* New Testimonial Submission Form */}
+      {/* Submit Your Testimonial (UNCHANGED) */}
       <section className="max-w-4xl mx-auto px-4 py-12 bg-white rounded-2xl shadow-md border border-gray-200 mb-20">
         <h2 className="text-3xl font-semibold mb-10 text-center text-gray-800">
           Submit Your Testimonial
         </h2>
 
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <form
+          onSubmit={handleSubmit}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
           {/* Name */}
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <label
+              htmlFor="name"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Name
+            </label>
             <input
               id="name"
               name="name"
@@ -242,7 +254,12 @@ const Testimonials = () => {
 
           {/* Position */}
           <div>
-            <label htmlFor="position" className="block text-sm font-medium text-gray-700 mb-1">Position</label>
+            <label
+              htmlFor="position"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Position
+            </label>
             <input
               id="position"
               name="position"
@@ -256,7 +273,12 @@ const Testimonials = () => {
 
           {/* Company */}
           <div>
-            <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1">Company</label>
+            <label
+              htmlFor="company"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Company
+            </label>
             <input
               id="company"
               name="company"
@@ -270,7 +292,12 @@ const Testimonials = () => {
 
           {/* Location */}
           <div>
-            <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+            <label
+              htmlFor="location"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Location
+            </label>
             <input
               id="location"
               name="location"
@@ -284,7 +311,12 @@ const Testimonials = () => {
 
           {/* Services */}
           <div>
-            <label htmlFor="services" className="block text-sm font-medium text-gray-700 mb-1">Services Used</label>
+            <label
+              htmlFor="services"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Services Used
+            </label>
             <input
               id="services"
               name="services"
@@ -297,7 +329,12 @@ const Testimonials = () => {
 
           {/* Date */}
           <div>
-            <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-1">Date</label>
+            <label
+              htmlFor="date"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              Date
+            </label>
             <input
               id="date"
               name="date"
@@ -339,7 +376,9 @@ const Testimonials = () => {
                   type="button"
                   onClick={() => setRating(star)}
                   className={`w-5 h-5 ${
-                    formData.rating >= star ? 'text-yellow-400' : 'text-gray-300 hover:text-yellow-400'
+                    formData.rating >= star
+                      ? 'text-yellow-400'
+                      : 'text-gray-300 hover:text-yellow-400'
                   }`}
                   aria-label={`${star} star`}
                 >
@@ -365,36 +404,39 @@ const Testimonials = () => {
       <section className="bg-gray-50 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Success Metrics</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Our Success Metrics
+            </h2>
             <p className="text-xl text-gray-600">
               Measuring our success through client satisfaction and results
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-white p-6 rounded-xl shadow-lg text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-2">100%</div>
-              <div className="text-gray-900 font-semibold mb-1">Client Satisfaction</div>
-              <div className="text-sm text-gray-600">All clients rate us 5 stars</div>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-lg text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">95%</div>
-              <div className="text-gray-900 font-semibold mb-1">Faster Processing</div>
-              <div className="text-sm text-gray-600">Compared to industry average</div>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-lg text-center">
-              <div className="text-3xl font-bold text-purple-600 mb-2">0%</div>
-              <div className="text-gray-900 font-semibold mb-1">Compliance Issues</div>
-              <div className="text-sm text-gray-600">Perfect compliance record</div>
-            </div>
-
-            <div className="bg-white p-6 rounded-xl shadow-lg text-center">
-              <div className="text-3xl font-bold text-orange-600 mb-2">90%</div>
-              <div className="text-gray-900 font-semibold mb-1">Repeat Clients</div>
-              <div className="text-sm text-gray-600">Choose us for additional services</div>
-            </div>
+            <MetricBox
+              color="blue"
+              value="100%"
+              title="Client Satisfaction"
+              subtitle="All clients rate us 5 stars"
+            />
+            <MetricBox
+              color="green"
+              value="95%"
+              title="Faster Processing"
+              subtitle="Compared to industry average"
+            />
+            <MetricBox
+              color="purple"
+              value="0%"
+              title="Compliance Issues"
+              subtitle="Perfect compliance record"
+            />
+            <MetricBox
+              color="orange"
+              value="90%"
+              title="Repeat Clients"
+              subtitle="Choose us for additional services"
+            />
           </div>
         </div>
       </section>
@@ -403,7 +445,9 @@ const Testimonials = () => {
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Industry Recognition</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+              Industry Recognition
+            </h2>
             <p className="text-xl text-gray-600">
               Trusted by businesses across various industries
             </p>
@@ -428,7 +472,9 @@ const Testimonials = () => {
                 key={index}
                 className="text-center p-4 bg-gray-50 rounded-lg hover:bg-blue-50 transition-colors duration-200"
               >
-                <div className="text-sm font-medium text-gray-700">{industry}</div>
+                <div className="text-sm font-medium text-gray-700">
+                  {industry}
+                </div>
               </div>
             ))}
           </div>
@@ -438,10 +484,13 @@ const Testimonials = () => {
       {/* CTA Section */}
       <section className="bg-gradient-to-r from-blue-600 to-blue-800 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Join Our Satisfied Clients</h2>
+          <h2 className="text-3xl font-bold text-white mb-4">
+            Join Our Satisfied Clients
+          </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Experience the same level of professional service and expertise that our clients
-            rave about. Contact us today for your gratuity and trust needs.
+            Experience the same level of professional service and expertise that
+            our clients rave about. Contact us today for your gratuity and trust
+            needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -457,11 +506,29 @@ const Testimonials = () => {
               Contact Us
             </Link>
           </div>
-
         </div>
       </section>
     </div>
   );
 };
+
+// Reusable Metric Box
+const MetricBox = ({
+  color,
+  value,
+  title,
+  subtitle,
+}: {
+  color: string;
+  value: string;
+  title: string;
+  subtitle: string;
+}) => (
+  <div className="bg-white p-6 rounded-xl shadow-lg text-center">
+    <div className={`text-3xl font-bold text-${color}-600 mb-2`}>{value}</div>
+    <div className="text-gray-900 font-semibold mb-1">{title}</div>
+    <div className="text-sm text-gray-600">{subtitle}</div>
+  </div>
+);
 
 export default Testimonials;

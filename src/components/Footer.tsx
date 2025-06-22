@@ -18,16 +18,6 @@ const Footer = () => {
               Telangana, Andhra Pradesh, and Karnataka since 2023. Your trusted partner 
               for AS-15 valuations, trust formation, and PCIT approvals.
             </p>
-            <div className="flex space-x-4">
-              <a
-                href="https://wa.me/919876543210"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-green-600 p-2 rounded-full hover:bg-green-700 transition-colors duration-200"
-              >
-                <MessageCircle className="h-5 w-5" />
-              </a>
-            </div>
           </div>
 
           {/* Quick Links */}
