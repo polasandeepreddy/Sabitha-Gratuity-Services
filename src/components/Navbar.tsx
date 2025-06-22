@@ -17,7 +17,7 @@ const Navbar = () => {
     { name: 'Contact', href: '/contact' },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path) => location.pathname === path;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,19 +41,20 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
+        <div className="flex justify-between h-20 items-center">
+          
           {/* Logo and Brand */}
-          {/* Logo and Brand */}
-          <Link to="/" className="flex items-center space-x-0.5">
+          <Link to="/" className="flex items-center space-x-2">
             <img
-              src="/logo/SGS.png"
+              src="/logo/SGS.png" // ✅ Correct path from public folder
               alt="Logo"
-              className="h-20 w-20 object-contain"
+              className="h-16 w-16 object-contain"
             />
-            <span className="text-2xl font-bold text-gray-900">
+            <span className="text-xl font-bold text-gray-900">
               Sabitha Gratuity Services
             </span>
           </Link>
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navigation.map((item) => (
@@ -71,7 +72,7 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
