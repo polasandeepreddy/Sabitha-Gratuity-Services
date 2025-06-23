@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  Calculator, FileText, Building2, UserCheck, Settings,
+  Calculator, FileText, Building2, UserCheck,
   CheckCircle, ArrowRight, Clock, Shield
 } from 'lucide-react';
 
@@ -33,12 +33,10 @@ const Services = () => {
       subtitle: 'Complete Documentation Support',
       description: 'End-to-end assistance in preparing trust deeds and all related documents required for trust formation as per regulatory requirements.',
       features: [
-        'Trust Deed Preparation',
-        'Legal Document Drafting',
-        'Regulatory Compliance Review',
-        'Documentation Verification',
-        'Amendment Support',
-        'Template Customization'
+        'Arranging Group Gratuity valuations',
+        'Arranging Leave Encashment Calculations',
+        'Arranging Group Superannuation Assessments',
+        'Compliance with AS-15 Staqndards'
       ],
       benefits: [
         'Legally compliant documentation',
@@ -89,26 +87,6 @@ const Services = () => {
         'Timely approvals'
       ]
     },
-    {
-      icon: Settings,
-      title: 'Trust Rule Framing',
-      subtitle: 'Regulatory Compliance Framework',
-      description: 'Professional assistance in framing trust rules in accordance with Income Tax Act, Insurance regulations, and other applicable Gratuity Laws.',
-      features: [
-        'Income Tax Act Compliance',
-        'Insurance Regulation Alignment',
-        'Gratuity Law Integration',
-        'Custom Rule Development',
-        'Regular Updates',
-        'Legal Review'
-      ],
-      benefits: [
-        'Full regulatory compliance',
-        'Customized solutions',
-        'Legal protection',
-        'Future-proof framework'
-      ]
-    }
   ];
 
   return (
